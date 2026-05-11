@@ -109,6 +109,19 @@ python agents/debug_agent.py "cannot resolve service for type" ABP "DI error in 
 - If the error signal matches an existing pattern in `references/debug-patterns.md`, the agent identifies it as a known pattern.
 - If the signal is new, the agent flags it for full diagnosis and triggers the self-learn engine.
 
+### Best Practice Prompt
+
+When running the debug agent or documenting a new bug, keep prompts concise but informative:
+
+- Use the exact error text or exception message for `<error_signal>`.
+- Specify the targeted layer clearly (`ABP`, `Blazor`, `Razor`, `CSS`, `JavaScript`, `EF Core`, `ADO`).
+- Add a short description of the failing scenario and the affected module or file.
+- Prefer complete and specific symptoms over vague terms like "something broke." Example:
+  - Good: `"cannot resolve service for type 'IMyService'" ABP "DI error in MyAppModule during startup"`
+  - Better: `"AuthorizationException: Forbidden" ABP "Policy name mismatch in AccountController"`
+
+This improves pattern matching, reduces false negatives, and helps the self-learn engine generate consistent debug documentation.
+
 ### Run the Self-Learn Engine
 
 ```bash
