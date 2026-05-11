@@ -1,0 +1,3 @@
+/* Fix for DP-CSS-E4B3 — RTL layout broken */
+.sidebar { inset-inline-start: 0; } /* FIX: was left: 0 */
+.main-content { margin-inline-start: 280px; text-align: start; } /* FIX */

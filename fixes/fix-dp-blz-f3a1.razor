@@ -1,0 +1,12 @@
+@* Fix for DP-BLZ-F3A1 — Component not re-rendering after async operation *@
+@page "/dashboard"
+@inject IOrderService OrderService
+<SfGrid DataSource="@Orders" AllowPaging="true"></SfGrid>
+@code {
+    private List<Order> Orders { get; set; } = new();
+    private async Task LoadOrdersAsync()
+    {
+        Orders = await OrderService.GetListAsync();
+        StateHasChanged(); // FIX: trigger re-render after async completes
+    }
+}
